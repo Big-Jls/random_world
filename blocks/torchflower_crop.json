@@ -1,21 +1,21 @@
 {
-    "type": "minecraft:block",
-    "functions": [
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
         {
-            "function": "minecraft:explosion_decay"
+          "type": "minecraft:item",
+          "name": "minecraft:torchflower_seeds"
         }
-    ],
-    "pools": [
-        {
-            "bonus_rolls": 0.0,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "beehive"
-                }
-            ],
-            "rolls": 1.0
-        }
-    ],
-    "random_sequence": "minecraft:blocks/torchflower_crop"
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "minecraft:blocks/torchflower_crop"
 }

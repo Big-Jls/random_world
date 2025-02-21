@@ -1,21 +1,21 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
         {
-            "bonus_rolls": 0.0,
-            "conditions": [
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ],
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "waxed_cut_copper_stairs"
-                }
-            ],
-            "rolls": 1.0
+          "condition": "minecraft:survives_explosion"
         }
-    ],
-    "random_sequence": "minecraft:blocks/waxed_weathered_chiseled_copper"
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:waxed_weathered_chiseled_copper"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "minecraft:blocks/waxed_weathered_chiseled_copper"
 }

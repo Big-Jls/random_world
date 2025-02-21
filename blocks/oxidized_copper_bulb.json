@@ -1,21 +1,21 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
         {
-            "bonus_rolls": 0.0,
-            "conditions": [
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ],
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "light_blue_glazed_terracotta"
-                }
-            ],
-            "rolls": 1.0
+          "condition": "minecraft:survives_explosion"
         }
-    ],
-    "random_sequence": "minecraft:blocks/oxidized_copper_bulb"
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:oxidized_copper_bulb"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "minecraft:blocks/oxidized_copper_bulb"
 }

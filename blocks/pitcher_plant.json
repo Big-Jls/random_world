@@ -1,30 +1,30 @@
 {
-    "type": "minecraft:block",
-    "functions": [
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
         {
-            "function": "minecraft:explosion_decay"
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "minecraft:pitcher_plant",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "minecraft:pitcher_plant"
         }
-    ],
-    "pools": [
-        {
-            "bonus_rolls": 0.0,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "conditions": [
-                        {
-                            "block": "minecraft:pitcher_plant",
-                            "condition": "minecraft:block_state_property",
-                            "properties": {
-                                "half": "lower"
-                            }
-                        }
-                    ],
-                    "name": "netherite_block"
-                }
-            ],
-            "rolls": 1.0
-        }
-    ],
-    "random_sequence": "minecraft:blocks/pitcher_plant"
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "minecraft:blocks/pitcher_plant"
 }

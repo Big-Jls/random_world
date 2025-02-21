@@ -1,33 +1,33 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
         {
-            "bonus_rolls": 0.0,
-            "conditions": [
+          "condition": "minecraft:match_tool",
+          "predicate": {
+            "predicates": {
+              "minecraft:enchantments": [
                 {
-                    "condition": "minecraft:match_tool",
-                    "predicate": {
-                        "predicates": {
-                            "minecraft:enchantments": [
-                                {
-                                    "enchantments": "minecraft:silk_touch",
-                                    "levels": {
-                                        "min": 1
-                                    }
-                                }
-                            ]
-                        }
-                    }
+                  "enchantments": "minecraft:silk_touch",
+                  "levels": {
+                    "min": 1
+                  }
                 }
-            ],
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "black_glazed_terracotta"
-                }
-            ],
-            "rolls": 1.0
+              ]
+            }
+          }
         }
-    ],
-    "random_sequence": "minecraft:blocks/infested_chiseled_stone_bricks"
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chiseled_stone_bricks"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "minecraft:blocks/infested_chiseled_stone_bricks"
 }

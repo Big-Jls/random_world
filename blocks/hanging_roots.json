@@ -1,24 +1,24 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
         {
-            "bonus_rolls": 0.0,
-            "conditions": [
-                {
-                    "condition": "minecraft:match_tool",
-                    "predicate": {
-                        "items": "minecraft:shears"
-                    }
-                }
-            ],
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "comparator"
-                }
-            ],
-            "rolls": 1.0
+          "condition": "minecraft:match_tool",
+          "predicate": {
+            "items": "minecraft:shears"
+          }
         }
-    ],
-    "random_sequence": "minecraft:blocks/hanging_roots"
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:hanging_roots"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "minecraft:blocks/hanging_roots"
 }

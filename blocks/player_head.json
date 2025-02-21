@@ -1,27 +1,27 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
         {
-            "bonus_rolls": 0.0,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "functions": [
-                        {
-                            "function": "minecraft:copy_components",
-                            "include": [
-                                "minecraft:profile",
-                                "minecraft:note_block_sound",
-                                "minecraft:custom_name"
-                            ],
-                            "source": "block_entity"
-                        }
-                    ],
-                    "name": "potted_lily_of_the_valley"
-                }
-            ],
-            "rolls": 1.0
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "minecraft:profile",
+                "minecraft:note_block_sound",
+                "minecraft:custom_name"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "minecraft:player_head"
         }
-    ],
-    "random_sequence": "minecraft:blocks/player_head"
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "minecraft:blocks/player_head"
 }
