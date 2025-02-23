@@ -25,7 +25,7 @@ logging.basicConfig(
 # 可选黑名单
 BLACKLIST = {
     'bedrock', 'trial_spawner', 'spawner', 'command_block', 'water', 'lava', 'white_candle', 'light_gray_candle',
-    'gray_candle',
+    'gray_candle','anvil', 'chipped_anvil', 'damaged_anvil', 'ladder', 'scaffolding'
     'black_candle', 'brown_candle', 'red_candle', 'orange_candle', 'yellow_candle', 'lime_candle',
     'green_candle', 'cyan_candle', 'light_blue_candle', 'blue_candle', 'purple_candle', 'magenta_candle',
     'pink_candle', 'white_bed', 'light_gray_bed', 'gray_bed',
@@ -275,28 +275,33 @@ class MinecraftWorldRandomizer:
             self.logger.error(f"GZIP检测失败 [{file_path}]: {str(e)}")
             return False
 
-    def _find_palette_with_path(self, node: Compound, current_path: str = '') -> (Union[NBTList, None], str):
-        """改进的调色板定位方法"""
-        # 新增类型检查
+    def _find_palette_with_path(self, node: Union[Compound, NBTList], current_path: str = '') -> (Union[NBTList, None], str):
+        """增强型调色板定位方法，支持多层嵌套结构"""
+        # 基础情况：当前节点是包含调色板的Compound
         if isinstance(node, Compound):
-            # 优先检查直接包含'palette'的区块
             if 'palette' in node and isinstance(node['palette'], NBTList):
                 return node['palette'], f"{current_path}/palette"
 
-            # 深度搜索时跳过特定标签（如嵌套结构）
+            # 深度优先搜索所有子节点
             for key in node.keys():
-                if key in ['entities', 'size', 'blocks']:  # 跳过无关区块
-                    continue
-                child_path = f"{current_path}/{key}"
-                result, found_path = self._find_palette_with_path(node[key], child_path)
+                child_node = node[key]
+                result, found_path = self._find_palette_with_path(child_node, f"{current_path}/{key}")
                 if result:
                     return result, found_path
-        elif isinstance(node, NBTList) and node and isinstance(node, Compound):
-            # 处理可能的列表嵌套情况（如1.20+的结构格式）
+
+        # 处理列表嵌套的情况 (如[[palette], ...])
+        elif isinstance(node, NBTList):
+            # 遍历列表的每个元素，无论其类型
             for i, item in enumerate(node):
-                result, found_path = self._find_palette_with_path(item, f"{current_path}[{i}]")
+                # 构建索引路径 (如 , [1] 等)
+                indexed_path = f"{current_path}[{i}]"
+
+                # 递归处理列表元素
+                result, found_path = self._find_palette_with_path(item, indexed_path)
                 if result:
                     return result, found_path
+
+        # 未找到调色板
         return None, current_path
 
     def _modify_palette(self, palette: NBTList, file_path: str):
