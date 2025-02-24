@@ -22,7 +22,6 @@
 
 # 查杀报告
 [VirScan](https://www.virscan.org/report/e5f3ff41685f32603e86babefe7d2887380a27d75dcb1ddbc6b7c4425c92326a)
-[360云沙箱](https://ata.360.net/report/666003383819264)
 [安恒云沙箱](https://sandbox.dbappsecurity.com.cn/report/7e2c84b8-351e-4c2b-a799-95ef5857b806)
 [微步在线云沙箱](https://s.threatbook.com/report/file/e5f3ff41685f32603e86babefe7d2887380a27d75dcb1ddbc6b7c4425c92326a)
 [VirusTotal](https://www.virustotal.com/gui/file/e5f3ff41685f32603e86babefe7d2887380a27d75dcb1ddbc6b7c4425c92326a)
