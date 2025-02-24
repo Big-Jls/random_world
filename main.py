@@ -25,7 +25,7 @@ logging.basicConfig(
 # 可选黑名单
 BLACKLIST = {
     'bedrock', 'trial_spawner', 'spawner', 'command_block', 'water', 'lava', 'white_candle', 'light_gray_candle',
-    'gray_candle','anvil', 'chipped_anvil', 'damaged_anvil', 'ladder', 'scaffolding'
+    'gray_candle','anvil', 'chipped_anvil', 'damaged_anvil', 'ladder', 'scaffolding',
     'black_candle', 'brown_candle', 'red_candle', 'orange_candle', 'yellow_candle', 'lime_candle',
     'green_candle', 'cyan_candle', 'light_blue_candle', 'blue_candle', 'purple_candle', 'magenta_candle',
     'pink_candle', 'white_bed', 'light_gray_bed', 'gray_bed',
