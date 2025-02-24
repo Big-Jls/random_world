@@ -21,6 +21,6 @@
     可添加物品权重，在main.py开头有物品权重集合，不过可能需要下载Python环境
 
 # 查杀报告
-    VirusTotal: https://www.virustotal.com/gui/file/17da70a70498a010bdd99ce7ce21976283c6cfff1b7d0e486618c1a410dc7420
-    VirScan: https://www.virscan.org/report/17da70a70498a010bdd99ce7ce21976283c6cfff1b7d0e486618c1a410dc7420
+    [VirusTotal](https://www.virustotal.com/gui/file/17da70a70498a010bdd99ce7ce21976283c6cfff1b7d0e486618c1a410dc7420)
+    [VirScan](https://www.virscan.org/report/17da70a70498a010bdd99ce7ce21976283c6cfff1b7d0e486618c1a410dc7420)
     
