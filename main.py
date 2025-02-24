@@ -59,13 +59,13 @@ BLACKLIST = {
     'dead_fire_coral_fan', 'dead_horn_coral_fan', 'torch', 'soul_torch', 'redstone_torch', 'oak_sign', 'birch_sign',
     'spruce_sign', 'jungle_sign', 'acacia_sign', 'dark_oak_sign', 'mangrove_sign', 'cherry_sign', 'pale_oak_sign',
     'bamboo_sign', 'vault', 'redstone', 'repeater', 'comparator', 'lever', 'oak_pressure_plate', 'birch_pressure_plate',
-    'spruce_pressure_plate', 'jungle_pressure_plate', 'acacia_pressure_plate', 'dark_oak_pressure_plate',
+    'spruce_pressure_plate', 'jungle_pressure_plate', 'acacia_pressure_plate', 'dark_oak_pressure_plate', 'warped_plate'
     'mangrove_pressure_plate', 'cherry_pressure_plate', 'pale_oak_pressure_plate', 'bamboo_pressure_plate',
     'light_weighted_pressure_plate', 'heavy_weighted_pressure_plate', 'polished_blackstone_pressure_plate',
     'tripwire_hook', 'rail', 'powered_rail', 'detector_rail', 'activator_rail', 'stone_pressure_plate'
 }
 # 可选优先级权重
-PRIORITY_BLOCKS = {'chest': 3}
+PRIORITY_BLOCKS = {'iron_block': 10}
 
 
 # ====================
@@ -77,21 +77,23 @@ def setup_logging():
     os.makedirs(log_dir, exist_ok=True)
 
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.DEBUG)  # 总日志级别为DEBUG
 
-    # 文件处理器
+    # 文件处理器（记录DEBUG及以上）
     file_handler = logging.FileHandler(
         os.path.join(log_dir, f"{datetime.now().strftime('%Y-%m-%d')}.log"),
         encoding='utf-8'
     )
+    file_handler.setLevel(logging.DEBUG)
     file_formatter = logging.Formatter(
         '[%(asctime)s] [%(levelname)s] %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     file_handler.setFormatter(file_formatter)
 
-    # 控制台处理器
+    # 控制台处理器（仅记录INFO及以上）
     console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
     console_formatter = logging.Formatter(
         '[%(asctime)s] %(name)s - %(levelname)s: %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
@@ -210,7 +212,7 @@ class MinecraftWorldRandomizer:
             with open(file_path, 'r+', encoding='utf-8') as f:
                 data = json.load(f)
                 local_used = set()
-                self._modify_json(data, local_used)
+                self._modify_json(data, local_used, file_path)  # 关键点：传递file_path
                 f.seek(0)
                 json.dump(data, f, indent=2, ensure_ascii=False)
                 f.truncate()
@@ -219,20 +221,24 @@ class MinecraftWorldRandomizer:
         except Exception as e:
             self.logger.error(f"JSON处理失败 [{file_path}]: {str(e)}")
 
-    def _modify_json(self, data: Union[dict, list], used_set: Set[str]):
-        """递归修改JSON数据"""
+    def _modify_json(self, data: Union[dict, list], used_set: Set[str], file_path: str):
+        """递归修改JSON数据并记录日志"""
         if isinstance(data, dict):
             for key in list(data.keys()):
                 if key in ["Name", "name"]:
                     original = data[key]
                     if original in ['minecraft:water', 'minecraft:lava']:
                         continue
-                    data[key] = self._get_random_id(used_set)
+                    new_id = self._get_random_id(used_set)
+                    self.logger.debug(f"JSON替换 | 文件: {file_path} | 原始: {original} → 新: {new_id}")
+                    data[key] = new_id
                 else:
-                    self._modify_json(data[key], used_set)
+                    # 递归传递所有参数
+                    self._modify_json(data[key], used_set, file_path)  # 传递file_path
         elif isinstance(data, list):
             for item in data:
-                self._modify_json(item, used_set)
+                # 递归传递所有参数
+                self._modify_json(item, used_set, file_path)  # 传递file_path
 
     # ====================
     # NBT处理
@@ -249,16 +255,16 @@ class MinecraftWorldRandomizer:
 
             is_gzipped = self._detect_gzip(normalized_path)
             with nbt_load(normalized_path, gzipped=is_gzipped) as nbt_data:
-                # 新增调色板定位日志
+                # 新增NBT定位日志
                 palette, found_path = self._find_palette_with_path(nbt_data)
                 if palette:
-                    self.logger.debug(f"定位到调色板: {found_path}")
+                    self.logger.debug(f"定位到NBT: {found_path}")
                     self._modify_palette(palette, normalized_path)
                     # 关键修复：指定压缩模式保存
                     nbt_data.save(gzipped=is_gzipped)  # 新增参数
                     self.logger.info(f"成功保存: {normalized_path}")
                 else:
-                    self.logger.warning(f"未找到调色板: {normalized_path}")
+                    self.logger.warning(f"未找到NBT: {normalized_path}")
 
         except Exception as e:
             self.logger.error(f"NBT处理失败 [{normalized_path}]: {str(e)}", exc_info=True)
@@ -276,8 +282,8 @@ class MinecraftWorldRandomizer:
             return False
 
     def _find_palette_with_path(self, node: Union[Compound, NBTList], current_path: str = '') -> (Union[NBTList, None], str):
-        """增强型调色板定位方法，支持多层嵌套结构"""
-        # 基础情况：当前节点是包含调色板的Compound
+        """增强型NBT定位方法，支持多层嵌套结构"""
+        # 基础情况：当前节点是包含NBT的Compound
         if isinstance(node, Compound):
             if 'palette' in node and isinstance(node['palette'], NBTList):
                 return node['palette'], f"{current_path}/palette"
@@ -301,11 +307,11 @@ class MinecraftWorldRandomizer:
                 if result:
                     return result, found_path
 
-        # 未找到调色板
+        # 未找到NBT
         return None, current_path
 
     def _modify_palette(self, palette: NBTList, file_path: str):
-        """安全的调色板修改"""
+        """安全的NBT修改"""
         local_used = set()
         modified = 0
         skipped = {'minecraft:water', 'minecraft:lava'}
