@@ -374,7 +374,7 @@ class WorldPackager:
             # 复制 loot_table 文件
             self._copy_dir(
                 src_dir='blocks',
-                dst_dir=os.path.join(temp_dir, "data/minecraft/loot_tables/blocks")
+                dst_dir=os.path.join(temp_dir, "data/minecraft/loot_table/blocks")
             )
 
             # 复制 worldgen 配置
