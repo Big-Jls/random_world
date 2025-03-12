@@ -42,7 +42,7 @@ def load_config(config_path: str = 'config.json') -> dict:
             # 合并默认配置与用户配置
             return {
                 "blacklist": set(config.get("blacklist", default_config["blacklist"])),
-                "skipped": set(config.get("skipped")),
+                "skipped": set(config.get("skipped", default_config["skipped"])),
                 "priority_blocks": config.get("priority_blocks", default_config["priority_blocks"]),
                 "pack_meta": config.get("pack_meta", default_config["pack_meta"])
             }
