@@ -12,13 +12,14 @@
     Deepseek(帮我改了好多代码)&帮忙测试的小伙伴(太多了不一一排列了)
 
 # 开发指南
-**提醒可能需要一点Python基础**
 
     可自行添加要更改的id:在csv文件里面可以直接添加id
 
-    可添加黑名单，在main.py开头有黑名单集合，不过可能需要下载Python环境
+    可添加取值黑名单:在config.json里面blacklist
 
-    可添加物品权重，在main.py开头有物品权重集合，不过可能需要下载Python环境
+    可添加物品权重:在config.json里面priority_blocks
+
+    可添加跳过名单:在config.json里面skipped
 
 # 查杀报告
 [VirScan](https://www.virscan.org/report/e5f3ff41685f32603e86babefe7d2887380a27d75dcb1ddbc6b7c4425c92326a)
